@@ -1,0 +1,21 @@
+{
+  "name": "learn-playwright-udemy",
+  "version": "1.0.0",
+  "description": "Sauce Demo Ecommerce tests using playwright",
+  "main": "index.js",
+  "scripts": {
+    "jenkins-server": "java -jar jenkins.war --httpPort=8080 --enable-future-java",
+    "sauce-demo": "playwright test --config=sauceDemo.config.ts --project=chromium"
+  },
+  "author": "Baher Sadat",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.7.18",
+    "prettier": "^2.7.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.25.1",
+    "playwright": "^1.25.1",
+    "typescript": "^4.8.2"
+  }
+}
