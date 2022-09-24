@@ -14,6 +14,8 @@ export class CheckoutPage{
     readonly headerComponents: HeaderComponents;
 
     // Selectors
+    readonly continueBtn: Locator;
+    readonly continueEmptyErr: Locator;
 
     constructor(page:Page){
         // Pages and Components
@@ -24,5 +26,14 @@ export class CheckoutPage{
         this.headerComponents = new HeaderComponents(page);
 
         // Selectors
+        this.continueBtn = page.locator('#continue');
+        this.continueEmptyErr = page.locator('h3[data-test="error"]');
+
+    }
+    async clickOnContinueBtn(){
+        await this.continueBtn.click();
+    }
+    async assertEmptyFormSubmission(){
+        await expect(this.continueEmptyErr).toBeVisible();
     }
 }
