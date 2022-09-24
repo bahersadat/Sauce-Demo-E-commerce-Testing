@@ -1,1 +1,1 @@
-Hi, I am trying to push my project to the github
+Hi, this is an E-commerce testing project with playwright
