@@ -17,7 +17,14 @@ test.describe('Sauce Demo E-commerce Checkout Page Tests', () => {
         await checkoutPage.mainShopPage.addToCart('Sauce Labs Bolt T-Shirt');
         await checkoutPage.mainShopPage.clickOnCartComp();
         await checkoutPage.cartPage.clickOnCheckoutBtn();
+        await checkoutPage.cartPage.assertCheckoutBtn();
     });
+    test.only('Continue with empty form', async ({ page }) => {
+        // click continue
+        await checkoutPage.clickOnContinueBtn();
+        // assert emtpy form submission
+        await checkoutPage.assertEmptyFormSubmission();
+    })
 
 
 
