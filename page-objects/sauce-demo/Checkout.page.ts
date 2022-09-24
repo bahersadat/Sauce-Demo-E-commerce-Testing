@@ -4,6 +4,8 @@ import { MainShopPage } from '../../page-objects/sauce-demo/Main-shop.page';
 import { HeaderComponents } from '../../page-objects/sauce-demo/components/primary-header.comp';
 import { CartPage } from '../../page-objects/sauce-demo/Cart.page';
 
+var calcTotal = 0;
+
 
 export class CheckoutPage{
     // Pages and Components
@@ -19,6 +21,9 @@ export class CheckoutPage{
     readonly firstName: Locator;
     readonly lastName: Locator;
     readonly zipCode: Locator;
+    readonly cancelCheckout: Locator;
+    readonly tax: Locator;
+    readonly summaryTotal: Locator;
 
     constructor(page:Page){
         // Pages and Components
@@ -34,6 +39,9 @@ export class CheckoutPage{
         this.firstName = page.locator('#first-name');
         this.lastName = page.locator('#last-name');
         this.zipCode = page.locator('#postal-code');
+        this.cancelCheckout = page.locator('#cancel');
+        this.tax = page.locator('.summary_tax_label');
+        this.summaryTotal = page.locator('.summary_total_label');
 
     }
     async clickOnContinueBtn(){
@@ -49,6 +57,42 @@ export class CheckoutPage{
     }
     async assertCheckoutInfo(){
         await expect(this.page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
+    }
+    async clickOnCancel(){
+        await this.cancelCheckout.click();
+    }
+    async assertCancel(){
+        await expect(this.page).toHaveURL('https://www.saucedemo.com/cart.html');
+    }
+    async SumOfPrices(){
+       const prices = await this.page.$$eval('div.inventory_item_price', (prices) => {
+        return prices.map((price) => {
+            const tempPrice =price.textContent;
+            const formatedPrice = el => el.replace('$', ''); 
+            return formatedPrice(tempPrice);
+        })
+       })
+       const formatedPrices = prices.map(Number)
+       
+       const total = formatedPrices.reduce((a,b) => {return a+b;});
+       calcTotal += total;
+        
+       
+    }
+    async calculateTotal(){
+        const TaxValue = (await this.tax.innerText()).valueOf();
+        const tempTax = TaxValue.replace('Tax: $', '');
+        const formatedTax = Number(tempTax);
+        
+        calcTotal += formatedTax; 
+    }
+    async validateTotal() {
+        const summaryTValue = (await this.summaryTotal.innerText()).valueOf();
+        const tempST = summaryTValue.replace('Total: $', '');
+        const formatedST = Number(tempST);
+        console.log('summary total is: '+formatedST+ ' and calculated total is: '+calcTotal);
+        await expect(calcTotal).toEqual(formatedST);
+        
     }
     
 }
