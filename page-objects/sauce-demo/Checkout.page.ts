@@ -23,6 +23,8 @@ export class CheckoutPage {
   readonly cancelCheckout: Locator;
   readonly tax: Locator;
   readonly summaryTotal: Locator;
+  readonly finishBtn: Locator;
+  readonly completedHeader:Locator;
 
   constructor(page: Page) {
     // Pages and Components
@@ -41,6 +43,8 @@ export class CheckoutPage {
     this.cancelCheckout = page.locator("#cancel");
     this.tax = page.locator(".summary_tax_label");
     this.summaryTotal = page.locator(".summary_total_label");
+    this.finishBtn = page.locator('#finish');
+    this.completedHeader = page.locator('h2.complete-header');
   }
   async clickOnContinueBtn() {
     await this.continueBtn.click();
@@ -104,5 +108,12 @@ export class CheckoutPage {
         calcTotal
     );
     await expect(calcTotal).toEqual(formatedST);
+  }
+  async clickOnFinish(){
+    await this.finishBtn.click();
+  }
+  async assertFinish(){
+    await expect(this.page).toHaveURL('https://www.saucedemo.com/checkout-complete.html');
+    await expect(this.completedHeader).toContainText('THANK YOU FOR YOUR ORDER');
   }
 }

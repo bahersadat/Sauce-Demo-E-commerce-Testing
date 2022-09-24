@@ -44,7 +44,7 @@ test.describe("Sauce Demo E-commerce Checkout Page Tests", () => {
     // assert cancellation
     await checkoutPage.assertCancel();
   });
-  test("Calculation of total price and validation", async ({ page }) => {
+  test("Complete checkout and validate Total", async ({ page }) => {
     // fill checkout info
     await checkoutPage.fillCheckoutInfo("Jhon", "Smith", "1001");
     // click on continue
@@ -53,5 +53,8 @@ test.describe("Sauce Demo E-commerce Checkout Page Tests", () => {
     await checkoutPage.calculateTotal();
     // validate total
     await checkoutPage.validateTotal();
+    // finish checkout and assert checkout completion
+    await checkoutPage.clickOnFinish();
+    await checkoutPage.assertFinish();
   });
 });
