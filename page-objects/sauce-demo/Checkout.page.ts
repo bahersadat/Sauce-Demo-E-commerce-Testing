@@ -16,6 +16,9 @@ export class CheckoutPage{
     // Selectors
     readonly continueBtn: Locator;
     readonly continueEmptyErr: Locator;
+    readonly firstName: Locator;
+    readonly lastName: Locator;
+    readonly zipCode: Locator;
 
     constructor(page:Page){
         // Pages and Components
@@ -28,6 +31,9 @@ export class CheckoutPage{
         // Selectors
         this.continueBtn = page.locator('#continue');
         this.continueEmptyErr = page.locator('h3[data-test="error"]');
+        this.firstName = page.locator('#first-name');
+        this.lastName = page.locator('#last-name');
+        this.zipCode = page.locator('#postal-code');
 
     }
     async clickOnContinueBtn(){
@@ -36,4 +42,13 @@ export class CheckoutPage{
     async assertEmptyFormSubmission(){
         await expect(this.continueEmptyErr).toBeVisible();
     }
+    async fillCheckoutInfo(first_name:string, last_name:string, zip_code:string){
+        await this.firstName.fill(first_name);
+        await this.lastName.fill(last_name);
+        await this.zipCode.fill(zip_code);
+    }
+    async assertCheckoutInfo(){
+        await expect(this.page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
+    }
+    
 }

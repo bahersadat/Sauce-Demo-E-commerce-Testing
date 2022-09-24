@@ -19,11 +19,19 @@ test.describe('Sauce Demo E-commerce Checkout Page Tests', () => {
         await checkoutPage.cartPage.clickOnCheckoutBtn();
         await checkoutPage.cartPage.assertCheckoutBtn();
     });
-    test.only('Continue with empty form', async ({ page }) => {
+    test('Negative scenario - Continue with empty form and assertion', async ({ page }) => {
         // click continue
         await checkoutPage.clickOnContinueBtn();
         // assert emtpy form submission
         await checkoutPage.assertEmptyFormSubmission();
+    })
+    test('Positive scenario - Continue with filled checkout information', async ({ page }) => {
+        // fill the form
+        await checkoutPage.fillCheckoutInfo('Jhon', 'Smith', '1001');
+        // click on continue
+        await checkoutPage.clickOnContinueBtn();
+        // assert successfull submission
+        await checkoutPage.assertCheckoutInfo();
     })
 
 
