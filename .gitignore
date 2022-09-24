@@ -1,0 +1,5 @@
+# ignore All .log files
+*.log
+
+# ignore All files in ANY directory named node_modules/
+node_modules/
