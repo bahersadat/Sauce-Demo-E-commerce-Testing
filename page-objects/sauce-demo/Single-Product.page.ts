@@ -1,10 +1,12 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { SecondaryHeader } from '../../page-objects/sauce-demo/components/secondary-header.comp';
 import { HeaderComponents } from "../../page-objects/sauce-demo/components/primary-header.comp";
+import { LoginPage } from "../../page-objects/sauce-demo/Login.page"; 
 
 export class SingleProductPage {
     // Pages and Components
   readonly page: Page;
+  readonly loginPage: LoginPage;
   readonly secondaryHeaderComponents: SecondaryHeader;
   readonly headerComponents:HeaderComponents;
 
@@ -17,6 +19,7 @@ export class SingleProductPage {
   constructor(page: Page) {
     // Pages and components
     this.page = page;
+    this.loginPage = new LoginPage(page);
     this.secondaryHeaderComponents = new SecondaryHeader(page);
     this.headerComponents = new HeaderComponents(page);
 

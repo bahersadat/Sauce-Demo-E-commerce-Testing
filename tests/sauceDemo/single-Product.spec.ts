@@ -1,23 +1,17 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../../page-objects/sauce-demo/Login.page";
-import { MainShopPage } from "../../page-objects/sauce-demo/Main-shop.page";
-import { SingleProductPage } from "../../page-objects/sauce-demo/Single-Product.page";
+import { SingleProductPage } from "../../page-objects/sauce-demo/Single-Product.page"; 
 
 test.describe("Sauce Demo E-Commerce Single Product Page Tests", () => {
   // declaring variables for Page Objects
-  let loginPage: LoginPage;
-  let mainShopPage: MainShopPage;
   let singleProductPage: SingleProductPage;
 
   test.beforeEach(async ({ page }) => {
     // initializing variables
-    loginPage = new LoginPage(page);
-    mainShopPage = new MainShopPage(page);
     singleProductPage = new SingleProductPage(page);
 
     // essential functions before each test
-    await loginPage.visit();
-    await loginPage.login(loginPage.validUsername, loginPage.validPassword);
+    await singleProductPage.loginPage.visit();
+    await singleProductPage.loginPage.login(singleProductPage.loginPage.validUsername, singleProductPage.loginPage.validPassword);
   });
   
 

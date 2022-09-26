@@ -1,12 +1,14 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "./Base.page";
 import { HeaderComponents } from "./components/primary-header.comp";
-import { SortComponents } from "./components/sort.comp";
+import { SortComponents } from "./components/sort.comp"; 
+import { LoginPage } from "../../page-objects/sauce-demo/Login.page";
 
 export class MainShopPage extends BasePage {
   // pages and components
   readonly sortComponents: SortComponents;
   readonly headerComponents:HeaderComponents;
+  readonly loginPage: LoginPage;
 
   // selectors
   readonly itemNamesSelector: Locator;
@@ -18,6 +20,7 @@ export class MainShopPage extends BasePage {
     // pages and components
     this.headerComponents = new HeaderComponents(page);
     this.sortComponents = new SortComponents(page);
+    this.loginPage = new LoginPage(page);
 
     // selectors
     this.itemNamesSelector = page.locator(".inventory_item_name");
