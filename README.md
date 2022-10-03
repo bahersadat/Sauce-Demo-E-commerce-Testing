@@ -1,5 +1,5 @@
 Hi, this is an E-commerce testing project with playwright.  
-here we have created plenty of test cases to test all functionalities.  
+We have created plenty of test cases for each page.  
 *Sauce-Demo E-commerce website*  
   
 Installation:  
